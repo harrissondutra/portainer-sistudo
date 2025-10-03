@@ -48,15 +48,17 @@ check_system_requirements() {
 show_animated_logo() {
     clear
     echo -e "${GREEN}"
-    echo -e "  _____        _____ _  __  _________     _______  ______ ____   ____ _______ "
-    echo -e " |  __ \ /\   / ____| |/ / |__   __\ \   / /  __ \|  ____|  _ \ / __ \__   __|"
-    echo -e " | |__) /  \ | |    | ' /     | |   \ \_/ /| |__) | |__  | |_) | |  | | | |   "
-    echo -e " |  ___/ /\ \| |    |  <      | |    \   / |  ___/|  __| |  _ <| |  | | | |   "
-    echo -e " | |  / ____ \ |____| . \     | |     | |  | |    | |____| |_) | |__| | | |   "
-    echo -e " |_| /_/    \_\_____|_|\_\    |_|     |_|  |_|    |______|____/ \____/  |_|   "
+    echo -e "  ____ ___ ____ _____ _   _ ____   ___  "
+    echo -e " / ___|_ _/ ___|_   _| | | |  _ \ / _ \ "
+    echo -e " \___ \| |\___ \ | | | | | | | | | | | |"
+    echo -e "  ___) | | ___) || | | |_| | |_| | |_| |"
+    echo -e " |____/___|____/ |_|  \___/|____/ \___/ "
+    echo -e "                                        "
     echo -e "${NC}"
     sleep 1
 }
+
+
 
 # Função para mostrar um banner colorido
 function show_banner() {
@@ -233,7 +235,7 @@ EOL
     echo -e "${GREEN}================================${NC}"
     echo ""
     echo -e "${BLUE}💡 Dica: Aguarde alguns minutos para que os certificados SSL sejam gerados${NC}"
-    echo -e "${GREEN}🌟 Visite: https://packtypebot.com.br${NC}"
+    echo -e "${GREEN}🌟 Visite: https://psistudo.com.br${NC}"
 else
     echo -e "${RED}❌ Instalação cancelada. Por favor, inicie novamente.${NC}"
     exit 0
