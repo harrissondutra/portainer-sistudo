@@ -139,13 +139,41 @@ if [ "$confirma1" == "y" ]; then
     (sudo apt update -y && sudo apt upgrade -y) > /dev/null 2>&1 &
     spinner $!
     
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}❌ Erro ao atualizar o sistema${NC}"
+        exit 1
+    fi
+    
     echo -e "${YELLOW}🐳 Instalando Docker...${NC}"
     (sudo apt install -y curl && \
     curl -fsSL https://get.docker.com -o get-docker.sh && \
     sudo sh get-docker.sh) > /dev/null 2>&1 &
     spinner $!
     
-    mkdir -p ~/Portainer && cd ~/Portainer
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}❌ Erro ao instalar Docker${NC}"
+        exit 1
+    fi
+    
+    # Criar diretório e navegar para ele
+    mkdir -p ~/Portainer
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}❌ Erro ao criar diretório ~/Portainer${NC}"
+        exit 1
+    fi
+    
+    cd ~/Portainer
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}❌ Erro ao navegar para ~/Portainer${NC}"
+        exit 1
+    fi
+    
+    # Verificar se estamos no diretório correto
+    if [ "$(pwd)" != "$HOME/Portainer" ]; then
+        echo -e "${RED}❌ Erro: Não foi possível navegar para o diretório correto${NC}"
+        exit 1
+    fi
+    
     echo -e "${GREEN}✅ Dependências instaladas com sucesso${NC}"
     sleep 2
     clear
@@ -220,9 +248,21 @@ EOL
     #########################################################
     # INICIANDO CONTAINER
     #########################################################
+    # Verificar se Docker está funcionando
+    echo -e "${YELLOW}🔍 Verificando Docker...${NC}"
+    if ! sudo docker --version > /dev/null 2>&1; then
+        echo -e "${RED}❌ Docker não está funcionando corretamente${NC}"
+        exit 1
+    fi
+    
     echo -e "${YELLOW}🚀 Iniciando containers...${NC}"
     (sudo docker compose up -d) > /dev/null 2>&1 &
     spinner $!
+    
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}❌ Erro ao iniciar containers${NC}"
+        exit 1
+    fi
     
     clear
     show_animated_logo
